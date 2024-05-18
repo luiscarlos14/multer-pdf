@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors'); // Importe o módulo 'cors'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,6 +17,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+
+// Middleware para permitir solicitações CORS de todas as origens
+app.use(cors());
 
 // Rota para upload de arquivos PDF
 app.post('/upload', upload.single('pdf'), (req, res) => {
